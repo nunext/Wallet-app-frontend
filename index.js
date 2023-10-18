@@ -4,7 +4,7 @@ const validateUser = async (email) => {
       `https://mp-wallet-app-api.herokuapp.com/users?email=${email}`
     );
     const user = await result.json();
-    console.log(user);
+    return user;
   } catch (error) {
     return { error };
   }
@@ -16,17 +16,14 @@ const onClickLogin = async () => {
     alert("Email inválido!");
     return;
   }
-
   const result = await validateUser(email);
 
   if (result.error) {
-    alert("Falha ao validar e-mail");
+    alert("Falha ao validar e-mail.");
     return;
   }
-
   localStorage.setItem("@WalletApp:userEmail", result.email);
   localStorage.setItem("@WalletApp:userName", result.name);
   localStorage.setItem("@WalletApp:userId", result.id);
-
   window.open("./src/pages/home/index.html", "_self");
 };
